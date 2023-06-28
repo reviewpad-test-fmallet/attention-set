@@ -32,4 +32,4 @@ workflows:
           in: $dictionary("component-label-per-file-path")
           do:
             - if: $hasFilePattern($filePattern)
-              then: $addLabel($componentLabel)
+              then: $$addLabel($componentLabel)
