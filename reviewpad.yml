@@ -22,7 +22,7 @@ workflows:
           in: $dictionary("team-label-per-file-path")
           do:
             - if: $hasFilePattern($filePattern)
-              then: addLabel($teamLabel)
+              then: $addLabel($teamLabel)
 
   - name: Put component labels
     run:              
@@ -32,4 +32,4 @@ workflows:
           in: $dictionary("component-label-per-file-path")
           do:
             - if: $hasFilePattern($filePattern)
-              then: addLabel($componentLabel)
+              then: $addLabel($componentLabel)
