@@ -1,0 +1,35 @@
+dictionaries:
+ - name: team-label-per-file-path
+   spec:
+     'dir1/**': '"team1"'
+     'dir2/**': '"team2"'
+     'dir3/**': '"team3"' 
+
+ - name: component-label-per-file-path
+   spec:
+     '**/authentication/**': '"authentication"'
+     '**/order/**': '"order"'
+     '**/api/**': '"api"'  
+     'LICENSE': '"license"'
+     '.github/workflow/**': '"ops"'
+     
+workflows:
+  - name: Put team labels
+    run:
+      - forEach: 
+          key: $filePattern
+          value: $teamLabel
+          in: $dictionary("team-label-per-file-path")
+          do:
+            - if: $hasFilePattern($filePattern)
+              then: addLabel($teamLabel)
+
+  - name: Put component labels
+    run:              
+      - forEach: 
+          key: $filePattern
+          value: $componentLabel
+          in: $dictionary("component-label-per-file-path")
+          do:
+            - if: $hasFilePattern($filePattern)
+              then: addLabel($componentLabel)
